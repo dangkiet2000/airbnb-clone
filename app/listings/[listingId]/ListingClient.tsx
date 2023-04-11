@@ -6,6 +6,7 @@ import ListingInfor from "@/app/components/listings/ListingInfor";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useMode from "@/app/hooks/useMode";
 import { SafeListing, SafeUser, SafeReservation } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
@@ -53,6 +54,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
+  const mode = useMode();
+
   const onCreateReservation = useCallback(() => {
     if (!currentUser) return loginModal.onOpen();
 
@@ -99,8 +102,12 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   return (
     <Container>
-      <div className="max-w-screen-lg mx-auto ">
-        <div className="flex flex-col gap-6">
+      <div className="max-w-screen-lg mx-auto">
+        <div
+          className={`flex flex-col gap-6 ${
+            mode.isDarkMode ? "text-white/80" : ""
+          }`}
+        >
           <ListingHead
             title={listing.title}
             imageSrc={listing.imageSrc}

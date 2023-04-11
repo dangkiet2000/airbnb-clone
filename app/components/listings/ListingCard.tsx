@@ -8,6 +8,7 @@ import Image from "next/image";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import useMode from "@/app/hooks/useMode";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -30,6 +31,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
 }) => {
   const router = useRouter();
   const { getByValue } = useCountries();
+
+  const mode = useMode();
 
   const location = getByValue(data.locationValue);
 
@@ -77,13 +80,21 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
 
-        <div className="font-semibold text-lg">
+        <div
+          className={`font-semibold text-lg ${
+            mode.isDarkMode ? "text-white/80" : "text-black"
+          }`}
+        >
           {location?.region}, {location?.label}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div>
-        <div className="flex flex-row items-center gap-1">
+        <div
+          className={`flex flex-row items-center gap-1 ${
+            mode.isDarkMode ? "text-white/80" : "text-black"
+          }`}
+        >
           <div className="font-semibold">$ {price}</div>
           {!reservation && <div className="font-light">night</div>}
         </div>

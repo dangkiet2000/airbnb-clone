@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
 import { IconType } from "react-icons";
 import qs from "query-string";
+import useMode from "../hooks/useMode";
 
 interface CategoryBoxProps {
   icon: IconType;
@@ -18,6 +19,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 }) => {
   const router = useRouter();
   const params = useSearchParams();
+  const mode = useMode();
 
   /**
    * ! Let's click a category and see the URL => This is how the function works.
@@ -56,9 +58,20 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   return (
     <div
       onClick={handleClick}
-      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer 
-      ${selected ? "border-b-neutral-800" : "border-transparent"}
-      ${selected ? "text-neutral-800" : "text-neutral-500"}
+      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 ${
+        mode.isDarkMode ? "hover:text-neutral-100 text-neutral-400" : "hover:text-neutral-800"
+      }  transition cursor-pointer 
+      ${
+        selected && mode.isDarkMode
+          ? "border-b-neutral-100 text-neutral-100"
+          : "border-transparent"
+      }
+      ${
+        selected && !mode.isDarkMode
+          ? "border-b-neutral-800 text-neutral-800"
+          : "border-transparent"
+      }
+      
       
       `}
     >

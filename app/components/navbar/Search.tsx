@@ -1,5 +1,6 @@
 "use client";
 import useCountries from "@/app/hooks/useCountries";
+import useMode from "@/app/hooks/useMode";
 import useSearchModal from "@/app/hooks/useSearchModal";
 import { differenceInDays } from "date-fns";
 import { useSearchParams } from "next/navigation";
@@ -8,6 +9,7 @@ import { BiSearch } from "react-icons/bi";
 
 const Search = () => {
   const searchModal = useSearchModal();
+  const mode = useMode()
 
   const params = useSearchParams();
 
@@ -55,7 +57,7 @@ const Search = () => {
       onClick={searchModal.onOpen}
       className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
     >
-      <div className="flex flex-row items-center justify-between">
+      <div className={`flex flex-row items-center justify-between ${mode.isDarkMode ? 'text-white/90': 'text-black'}`}>
         <div className="text-sm font-semibold px-6">{locationLabel}</div>
         <div className="hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center">
           {durationLabel}

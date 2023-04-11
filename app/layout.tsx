@@ -23,20 +23,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser(); 
 
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${font.className} dark`} >
         <ClientOnly>
           <ToasterProvider />
-          <SearchModal />
+          <SearchModal /> 
           <RentModal />
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
+        <div className="pt-28 pb-[25%]">{children}</div>
         </ClientOnly>
-        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );
