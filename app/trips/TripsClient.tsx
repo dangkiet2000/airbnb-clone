@@ -43,6 +43,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
   return (
     <Container>
       <Heading
+        isDarkMode
         title="Trips"
         subtitle="Where you've been and where you're going?"
       />

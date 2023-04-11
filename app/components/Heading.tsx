@@ -6,27 +6,40 @@ interface HeadingProps {
   title: string;
   subtitle?: string;
   center?: boolean;
+  isDarkMode?: boolean;
 }
 
-const Heading: React.FC<HeadingProps> = ({ title, center, subtitle }) => {
+const Heading: React.FC<HeadingProps> = ({
+  title,
+  center,
+  subtitle,
+  isDarkMode,
+}) => {
   const mode = useMode();
   return (
     <div className={`${center ? "text-center" : "text-start"}`}>
-      <div
-        className={`${
-          mode.isDarkMode ? "text-white/80" : "text-black"
-        } text-2xl font-bold`}
-      >
-        {title}
-      </div>
-
-      <div
-        className={`font-light ${
-          mode.isDarkMode ? "text-neutral-400" : "text-neutral-500"
-        } mt-2`}
-      >
-        {subtitle}
-      </div>
+      {isDarkMode ? (
+        <div
+          className={`text-2xl font-bold ${
+            mode.isDarkMode ? "text-white/80" : "text-black"
+          }`}
+        >
+          {title}
+        </div>
+      ) : (
+        <div className="text-2xl font-bold">{title}</div>
+      )}
+      {isDarkMode ? (
+        <div
+          className={`${
+            mode.isDarkMode ? "text-neutral-500" : "text-neutral-200"
+          } mt-2`}
+        >
+          {subtitle}
+        </div>
+      ) : (
+        <div className="text-neutral-500 mt-2">{subtitle}</div>
+      )}
     </div>
   );
 };
